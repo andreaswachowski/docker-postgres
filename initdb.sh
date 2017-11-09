@@ -32,3 +32,5 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA jobmon TO $POSTGRES_USER;
     GRANT ALL ON ALL SEQUENCES IN SCHEMA jobmon TO $POSTGRES_USER;
 EOSQL
+
+echo "shared_preload_libraries = 'pg_partman_bgw'" >> $PGDATA/postgresql.conf
