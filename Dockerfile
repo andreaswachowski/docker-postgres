@@ -1,7 +1,7 @@
 FROM postgres:10
 
 # Based on https://hub.docker.com/r/abakpress/postgres-db/~/dockerfile/
-ARG PG_PARTMAN_VERSION=master
+ARG PG_PARTMAN_VERSION=fix-custom-interval-native-partitioning
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && apt-get install -yq --no-install-recommends \
@@ -28,7 +28,7 @@ RUN cd /tmp \
     && rm -rf pg_jobmon-1.3.3
 
 RUN cd /tmp \
-    && wget https://github.com/keithf4/pg_partman/archive/$PG_PARTMAN_VERSION.zip \
+    && wget https://github.com/andreaswachowski/pg_partman/archive/$PG_PARTMAN_VERSION.zip \
     && unzip $PG_PARTMAN_VERSION.zip \
     && make -C pg_partman-$PG_PARTMAN_VERSION \
     && make install -C pg_partman-$PG_PARTMAN_VERSION \
