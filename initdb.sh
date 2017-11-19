@@ -26,6 +26,10 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 EOSQL
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    CREATE EXTENSION pldbgapi;
+EOSQL
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     GRANT USAGE ON SCHEMA jobmon TO $POSTGRES_USER;
     GRANT USAGE ON SCHEMA dblink to $POSTGRES_USER;
     GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA jobmon TO $POSTGRES_USER;
@@ -33,4 +37,4 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     GRANT ALL ON ALL SEQUENCES IN SCHEMA jobmon TO $POSTGRES_USER;
 EOSQL
 
-echo "shared_preload_libraries = 'pg_partman_bgw'" >> $PGDATA/postgresql.conf
+echo "shared_preload_libraries = 'pg_partman_bgw,plugin_debugger'" >> $PGDATA/postgresql.conf

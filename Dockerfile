@@ -9,6 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     postgresql-server-dev-all \
     postgresql-common \
     wget \
+    git \
     unzip \
     make \
     build-essential \
@@ -17,6 +18,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
+
+RUN cd /tmp \
+    && git clone git://git.postgresql.org/git/pldebugger.git \
+    && cd pldebugger \
+    && USE_PGXS=1 make \
+    && USE_PGXS=1 make install \
+    && rm -rf pldebugger
 
 RUN cd /tmp \
     && wget https://github.com/omniti-labs/pg_jobmon/archive/v1.3.3.zip \
