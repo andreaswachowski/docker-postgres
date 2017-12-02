@@ -1,4 +1,4 @@
-FROM postgres:10
+FROM postgres:10.1
 
 # Based on https://hub.docker.com/r/abakpress/postgres-db/~/dockerfile/
 
